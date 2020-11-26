@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
-import AverageTicker from '../../Components/AverageTicker';
+import AverageTicker from '../AverageTicker';
 import BitstampTrading from '../BitstampTrading';
 import { makeStyles } from "@material-ui/core/styles";
 
