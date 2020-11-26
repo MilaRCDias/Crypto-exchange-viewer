@@ -9,7 +9,7 @@ import Buttons from '../../Components/Buttons'
  *  select a tranding value pair and display values
  */
 const BitstampTrading = () => {
-  const [selectedPairValue, setSelectedPairValue] = useState("btcusd");  
+  const [selectedPairValue, setSelectedPairValue] = useState("gbpusd");  
   const [buttonValues, setButtonValues] = useState();
   const [displayValue, setDisplayValue] = useState();
 
@@ -21,7 +21,7 @@ useEffect(()=>{
 
 setButtonValues(res.data);
     }).catch((err)=>{throw err});
-});
+},[]);
 
 
 /**
@@ -42,7 +42,11 @@ useEffect(() => {
 
     return (
       <div>
-        <Buttons info={buttonValues} handleClick={setSelectedPairValue} />
+        <Buttons
+          info={buttonValues}
+          handleClick={setSelectedPairValue}
+          selected={selectedPairValue}
+        />
         <div>{displayValue?.high}</div>
       </div>
     );

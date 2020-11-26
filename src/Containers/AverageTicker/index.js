@@ -11,7 +11,7 @@ import axios from "axios";
  *  */ 
 
 const AverageTicker = () => {
-  const [bitstampValue, setbitstampValue] = useState();
+  const [bitstampValue, setbitstampValue] = useState(undefined);
   const [coinbaseValue, setCoinbaseValue] = useState();
   const [bitfinexValue, setBitfinexValue] = useState();
   const [averageValue, setAverageValue] = useState("");
@@ -57,7 +57,6 @@ const AverageTicker = () => {
    * Coinbase http call, react lifecycle hook
    */
   useEffect(() => {
-    if (coinbaseValue) return;
     axios
       .get(`https://api.coinbase.com/v2/exchange-rates?currency=BTC`)
       .then((res) => {
@@ -66,7 +65,7 @@ const AverageTicker = () => {
       .catch((err) => {
         throw err;
       });
-  });
+  },[]);
 
   /**
    *  Bitstamp http call,react lifecycle hook
@@ -85,7 +84,6 @@ const AverageTicker = () => {
         throw err;
       });
   });
-
   /**
    * Component update on change values of rates and calculate the average
    */

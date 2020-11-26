@@ -14,9 +14,10 @@ const useStyles = makeStyles({
   },
 });
 
-const Buttons = ({info, handleClick}) => {
+const Buttons = ({info, handleClick, selected}) => {
     const styles= useStyles();
  
+
   return (
     <Paper elevation={0} className={styles.root}>
       {info === undefined
@@ -37,6 +38,8 @@ const Buttons = ({info, handleClick}) => {
               <Button
                 onClick={() => handleClick(data.url_symbol)}
                 variant="contained"
+                value={data.url_symbol}
+                color={data.url_symbol === selected ? "primary" : "default"}
               >
                 {data.name}
               </Button>{" "}
@@ -47,7 +50,9 @@ const Buttons = ({info, handleClick}) => {
 };
 
 Buttons.propTypes = {
-    
+  info: PropTypes.array,
+  handleClick: PropTypes.func,
+  selected: PropTypes.string,
 };
 
 export default Buttons;
