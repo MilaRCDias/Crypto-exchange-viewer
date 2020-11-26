@@ -6,8 +6,14 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
-    backgroundColor: "lightGray",
-    minHeight:300,
+    
+  },
+  averageWrap: {
+    display: "flex",
+    justifyContent: "center",
+  },
+  bitstampWrap: {
+    backgroundColor: "#f3f3f3",
   },
 });
 
@@ -20,10 +26,10 @@ const styles = useStyles();
 
 return (
   <Grid container spacing={3} className={styles.root}>
-    <Grid item xs={12} md={6}>
-      <AverageTicker  />
+    <Grid item xs={12} sm={6} className={styles.averageWrap}>
+      <AverageTicker />
     </Grid>
-    <Grid item xs={12} md={6}>
+    <Grid item xs={12} sm={6} className={styles.bitstampWrap}>
       <BitstampTrading />
     </Grid>
   </Grid>

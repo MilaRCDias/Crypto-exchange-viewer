@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import GJNumbersView from "../../Components/GJNumbersView​";
-import { Box } from "@material-ui/core";
+import { makeStyles, Paper } from "@material-ui/core";
 
-
+const useStyles = makeStyles({
+  averageContainer: {
+    margin: "auto",
+    backgroundColor: "#f3f3f3",
+  },
+});
 
 
 
@@ -19,7 +24,7 @@ const AverageTicker = () => {
   const [coinbaseValue, setCoinbaseValue] = useState();
   const [bitfinexValue, setBitfinexValue] = useState();
   const [averageValue, setAverageValue] = useState("");
-
+  const styles = useStyles();
   /**
    * Function to calculate average of exchange rates
    */
@@ -101,9 +106,9 @@ const AverageTicker = () => {
   }, [bitstampValue, coinbaseValue, bitfinexValue]);
 
   return (
-    <Box m={2} >
+    <Paper className={styles.averageContainer} elevation={3}>
       <GJNumbersView title="Average ticker value" data={averageValue} />
-    </Box>
+    </Paper>
   );
 };
 export default AverageTicker;

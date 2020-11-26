@@ -7,10 +7,11 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
-   display: 'flex',
-   flexWrap: 'wrap',
-   maxHeight: 250,
-   overflowY:'scroll',
+    display: "flex",
+    flexWrap: "wrap",
+    maxHeight: 250,
+    overflowY: "scroll",
+    margin: "0.5rem 0.5rem 2.5rem ",
   },
 });
 

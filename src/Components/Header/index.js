@@ -1,6 +1,5 @@
 import React from 'react';
-import { Box } from '@material-ui/core';
-import { makeStyles } from "@material-ui/core/styles";
+import { Box, Typography, makeStyles} from "@material-ui/core";
 
 const useStyles = makeStyles({
   logo: {
@@ -17,7 +16,9 @@ const style = useStyles();
 return (
   <div>
     <Box p={2} className={style.logo}>
-      <h1 >Cryptocurrency Exchange</h1>
+      <Typography variant="h2" component="h1">
+        Cryptocurrency Exchange
+      </Typography>
       <h3>*** Trading Viewer App ***</h3>
     </Box>
   </div>

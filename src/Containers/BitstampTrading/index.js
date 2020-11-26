@@ -2,7 +2,15 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Buttons from '../../Components/Buttons'
 import GJNumbersView from '../../Components/GJNumbersView​';
+import { Paper, Typography } from "@material-ui/core";
 
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  trandingValues: {
+    minHeight: 400,
+  },
+});
 
 
 /**
@@ -14,7 +22,7 @@ const BitstampTrading = () => {
   const [selectedPairValue, setSelectedPairValue] = useState("gbpusd");  
   const [buttonValues, setButtonValues] = useState();
   const [displayValue, setDisplayValue] = useState();
-
+const styles = useStyles()
 /**
  * Get button pair info from Api on component did mount
  */
@@ -44,14 +52,19 @@ useEffect(() => {
 
     return (
       <div>
-        <Buttons
-          info={buttonValues}
-          handleClick={setSelectedPairValue}
-          selected={selectedPairValue}
-        />
         <div>
-          <GJNumbersView title="Bitstamp Trading Values" data={displayValue} />
+          <Typography variant="h5" component="h3" color="textSecondary">
+            Choose the exchange pair:
+          </Typography>
+          <Buttons
+            info={buttonValues}
+            handleClick={setSelectedPairValue}
+            selected={selectedPairValue}
+          />
         </div>
+        <Paper elevation={3} className={styles.trandingValues}>
+          <GJNumbersView title="Bitstamp Trading Values" data={displayValue} />
+        </Paper>
       </div>
     );
 }
