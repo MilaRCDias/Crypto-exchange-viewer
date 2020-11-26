@@ -7,6 +7,7 @@ const useStyles = makeStyles({
   averageContainer: {
     margin: "auto",
     backgroundColor: "#f3f3f3",
+    width:'50%'
   },
 });
 

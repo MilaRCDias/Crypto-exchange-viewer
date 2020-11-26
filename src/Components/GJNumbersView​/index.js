@@ -1,14 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, makeStyles, Typography, Box } from "@material-ui/core";
+import { Grid,  Typography, Box } from "@material-ui/core";
 import GJNumberLabel from '../GJNumberLabel​'
 
-const useStyles = makeStyles({
- 
-  gjview:{
-    margin: 'auto'
-  },
-});
 
 
 /**
@@ -16,11 +10,11 @@ const useStyles = makeStyles({
  */
 
 const GJNumbersView = ({title, data}) => {
-   const styles = useStyles();
+  
    
     return (
-      <Grid container className={styles.gjview}>
-        <Box m={2}>
+      <Grid container>
+        <Box my={4} mx="auto">
           <Grid item xs={12}>
             <Typography variant="h6" component="h2" align="center">
               {title}
