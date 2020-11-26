@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import GJNumbersView from "../../Components/GJNumbersView​";
+import { Box } from "@material-ui/core";
+
+
 
 
 
@@ -19,9 +23,13 @@ const AverageTicker = () => {
   /**
    * Function to calculate average of exchange rates
    */
-  const calculateResult = (value1, value2, value3) => {
-    const average = (value1 + value2 + value3) / 3;
-    setAverageValue(average.toFixed(2));
+  const calculateResult = (arrayValue) => {
+    const sum = arrayValue.reduce((acc, currentValue) => acc + currentValue);
+    const average = sum / (arrayValue.length+1);
+
+   
+
+    setAverageValue({ 'Average' :average.toFixed(2)});
   };
 
   /**
@@ -89,9 +97,13 @@ const AverageTicker = () => {
    */
   useEffect(() => {
     if (!bitstampValue || !coinbaseValue || !bitfinexValue) return;
-    calculateResult(bitstampValue, coinbaseValue, bitfinexValue);
+    calculateResult([bitstampValue, coinbaseValue, bitfinexValue]);
   }, [bitstampValue, coinbaseValue, bitfinexValue]);
 
-  return <div>value {averageValue}</div>;
+  return (
+    <Box m={2} >
+      <GJNumbersView title="Average ticker value" data={averageValue} />
+    </Box>
+  );
 };
 export default AverageTicker;

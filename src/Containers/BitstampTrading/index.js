@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Buttons from '../../Components/Buttons'
+import GJNumbersView from '../../Components/GJNumbersView​';
 
 
 
 /**
- *  Select Bitstamp tranding values
+ *  Select Bitstamp tranding values (column 2)
+ *  Container component 
  *  select a tranding value pair and display values
  */
 const BitstampTrading = () => {
@@ -47,7 +49,9 @@ useEffect(() => {
           handleClick={setSelectedPairValue}
           selected={selectedPairValue}
         />
-        <div>{displayValue?.high}</div>
+        <div>
+          <GJNumbersView title="Bitstamp Trading Values" data={displayValue} />
+        </div>
       </div>
     );
 }
