@@ -1,14 +1,36 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import AverageTicker from '../../Components/AverageTicker';
-import BitstampTrading from '../../Components/BitstampTrading';
+import BitstampTrading from '../BitstampTrading';
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  root: {
+    backgroundColor: "lightGray",
+    minHeight:300,
+  },
+});
+
+const MainContainer = () => {
+const styles = useStyles();
 
 
-const MainContainer = (props) => (
-  <Grid container spacing={3}>
-    <Grid item xs={6}><AverageTicker /></Grid>
-    <Grid item xs={6}><BitstampTrading /></Grid>
+
+
+
+return (
+  <Grid container spacing={3} className={styles.root}>
+    <Grid item xs={12} md={6}>
+      <AverageTicker  />
+    </Grid>
+    <Grid item xs={12} md={6}>
+      <BitstampTrading />
+    </Grid>
   </Grid>
 );
+};
+
+
+
 
 export default MainContainer;
