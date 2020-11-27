@@ -12,6 +12,15 @@ const useStyles = makeStyles({
     maxHeight: 250,
     overflowY: "scroll",
     margin: "0.5rem 0.5rem 2.5rem ",
+    borderRadius: 20,
+  },
+  buttonSelected: {
+    backgroundColor: "#58CAA9",
+    color: "#ffffff",
+  },
+  button: {
+    backgroundColor: "#4C68EF",
+    color: "#ffffff",
   },
 });
 
@@ -40,7 +49,11 @@ const Buttons = ({info, handleClick, selected}) => {
                 onClick={() => handleClick(data.url_symbol)}
                 variant="contained"
                 value={data.url_symbol}
-                color={data.url_symbol === selected ? "primary" : "default"}
+                className={
+                  data.url_symbol === selected
+                    ? styles.buttonSelected
+                    : styles.button
+                }
               >
                 {data.name}
               </Button>{" "}

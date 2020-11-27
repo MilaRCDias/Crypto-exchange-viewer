@@ -3,23 +3,27 @@ import { Box, Typography, makeStyles} from "@material-ui/core";
 
 const useStyles = makeStyles({
   logo: {
-    textAlign: "center",
-    color: "green",
-    fontFamily: "",
+    textAlign: "left",
+    color: "#58CAA9",
+    padding:'2rem'
   },
+  navbar: {
+    backgroundColor: "#ffffff",
+    boxShadow: "0px 2px 2px -2px rgba(0,0,0,0.1)",
   
+  },
 });
 
 const Header = () => {
 const style = useStyles();
 
 return (
-  <div>
+  <div className={style.navbar}>
     <Box p={2} className={style.logo}>
-      <Typography variant="h2" component="h1">
+      <Typography variant="h4" component="h1">
         Cryptocurrency Exchange
       </Typography>
-      <h3>*** Trading Viewer App ***</h3>
+      
     </Box>
   </div>
 );

@@ -4,28 +4,32 @@ import Header from '../Components/Header'
 import { Container, Grid, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles({
-main:{
-      marginBottom: '4rem'
+  main: {
+    marginBottom: "4rem",
   },
-
-
-})
+  pageContainer: {
+    backgroundColor: "#f1f7fe",
+    paddingBottom: '6rem'
+  },
+});
 
 const App = () => {
 
   const styles = useStyles();
 
   return (
-    <Container>
-      <Grid container>
-        <Grid item xs={12} className={styles.main}>
-          <Header />
-        </Grid>
-        <Grid item xs={12}>
-          <MainContainer />
-        </Grid>
+    <div className={styles.pageContainer}>
+      <Grid item xs={12} className={styles.main}>
+        <Header />
       </Grid>
-    </Container>
+      <Container>
+        <Grid container>
+          <Grid item xs={12}>
+            <MainContainer />
+          </Grid>
+        </Grid>
+      </Container>
+    </div>
   );
 }
 

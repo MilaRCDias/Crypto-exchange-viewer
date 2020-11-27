@@ -11,7 +11,7 @@ import {
 
 const useStyles = makeStyles({
   trandingValues: {
-      paddingTop: '1rem',
+    paddingTop: "1rem",
     minHeight: 380,
   },
   titlePair: {
@@ -20,7 +20,6 @@ const useStyles = makeStyles({
   trandingButtons: {
     borderRadius: 20,
     paddingBottom: 1,
- 
   },
 });
 
@@ -34,7 +33,7 @@ const BitstampTrading = () => {
   const [buttonValues, setButtonValues] = useState();
   const [displayValue, setDisplayValue] = useState();
   const { pairValue, setPairValue } = useContext(PairValuesContext);
-  const {  setBitstampValues } = useContext(BitstampValuesContext);
+  const { setBitstampValues } = useContext(BitstampValuesContext);
 
   /**
    * Get button pair info from Api on component did mount
@@ -70,7 +69,7 @@ const BitstampTrading = () => {
       <Paper elevation={3} className={styles.trandingButtons}>
         <div className={styles.titlePair}>
           <Typography variant="h6" component="h3" color="textSecondary">
-            Choose the exchange pair:
+            Choose the exchange pair
           </Typography>
         </div>
         <Buttons

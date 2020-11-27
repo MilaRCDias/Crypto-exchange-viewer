@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import GJNumbersView from "../../Components/GJNumbersView​";
-import { makeStyles, Paper } from "@material-ui/core";
+import { makeStyles, Paper, Typography } from "@material-ui/core";
 import {
   PairValuesContext,
   BitstampValuesContext,
@@ -9,9 +9,7 @@ import {
 
 const useStyles = makeStyles({
   averageContainer: {
-    margin: "auto",
-    backgroundColor: "#f3f3f3",
-    width: "50%",
+   
   },
 });
 
@@ -124,9 +122,10 @@ const AverageTicker = () => {
   }, [bitstampValues, coinbaseValue, bitfinexValue]);
 
   return (
-    <Paper className={styles.averageContainer} elevation={3}>
-      <GJNumbersView title="Average ticker value" data={averageValue} />
-    </Paper>
+    <div className={styles.averageContainer}>
+      <GJNumbersView title="Average ticker value" data={averageValue} round />
+      <Typography align="center">{`${symbolCoinbase} => ${currencyCoinbase}`}</Typography>
+    </div>
   );
 };
 export default AverageTicker;
