@@ -63,7 +63,7 @@ const BitstampTrading = () => {
       .catch((err) => {
         throw err;
       });
-  }, [pairValue]);
+  }, [pairValue, setBitstampValues]);
 
   return (
     <div>
