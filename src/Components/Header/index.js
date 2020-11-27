@@ -18,7 +18,7 @@ const Header = () => {
     <div className={style.navbar}>
       <Box p={2} className={style.logo}>
         <Typography variant="h4" component="h1">
-          Cryptocurrency Exchange
+          Trading Pairs
         </Typography>
       </Box>
     </div>

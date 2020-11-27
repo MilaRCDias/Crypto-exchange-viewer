@@ -33,7 +33,7 @@ const BitstampTrading = () => {
   const [buttonValues, setButtonValues] = useState();
   const [displayValue, setDisplayValue] = useState();
   const { pairValue, setPairValue } = useContext(PairValuesContext);
-  const { bitstampValues,setBitstampValues } = useContext(BitstampValuesContext);
+  const {setBitstampValues } = useContext(BitstampValuesContext);
 
   /**
    * Get button pair info from Api on component did mount
@@ -50,11 +50,12 @@ const BitstampTrading = () => {
   }, []);
 
   /**
-   *  Get values from Api on button click and component will mount
+   *  Get values from Api on button click and component did mount
    */
   useEffect(() => {
+    const stringPair = pairValue.split("/").join("").toLowerCase();
     axios
-      .get(`https://www.bitstamp.net/api/v2/ticker/${pairValue}/ `)
+      .get(`https://www.bitstamp.net/api/v2/ticker/${stringPair}/ `)
       .then((res) => {
         setDisplayValue(res.data);
         setBitstampValues(res.data);
@@ -62,7 +63,7 @@ const BitstampTrading = () => {
       .catch((err) => {
         throw err;
       });
-  });
+  }, [pairValue]);
 
   return (
     <div>

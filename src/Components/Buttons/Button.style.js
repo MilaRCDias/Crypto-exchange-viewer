@@ -14,5 +14,8 @@ export default () => ({
   button: {
     backgroundColor: "#4C68EF",
     color: "#ffffff",
+    "&:hover": {
+      backgroundColor: "#58CAA9",
+    },
   },
 });

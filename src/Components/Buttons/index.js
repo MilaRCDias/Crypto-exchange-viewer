@@ -34,11 +34,11 @@ const Buttons = ({ info, handleClick, selected }) => {
             <Box key={data.name} m={1}>
               {" "}
               <Button
-                onClick={() => handleClick(data.url_symbol)}
+                onClick={() => handleClick(data.name)}
                 variant="contained"
                 value={data.url_symbol}
                 className={
-                  data.url_symbol === selected
+                  data.name === selected
                     ? styles.buttonSelected
                     : styles.button
                 }

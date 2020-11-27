@@ -1,15 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { makeStyles, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import GJNumbersView from "../../Components/GJNumbersView​";
 import {
   PairValuesContext,
   BitstampValuesContext,
 } from "../../store/pairsContext";
 
-const useStyles = makeStyles({
-  averageContainer: {},
-});
 
 /**
  *  *Average ticker container (column 1)
@@ -18,19 +15,18 @@ const useStyles = makeStyles({
  *  */
 
 const AverageTicker = () => {
-  //const [bitstampValue, setbitstampValue] = useState(undefined);
   const [coinbaseValue, setCoinbaseValue] = useState();
   const [bitfinexValue, setBitfinexValue] = useState();
   const [averageValue, setAverageValue] = useState("");
-  const styles = useStyles();
-
+ 
   const { pairValue } = useContext(PairValuesContext);
   const { bitstampValues } = useContext(BitstampValuesContext);
 
-  console.log("aver component", pairValue, bitstampValues);
-  const symbolValue = pairValue.toUpperCase();
-  const symbolCoinbase = symbolValue.substring(0, 3);
-  const currencyCoinbase = symbolValue.substring(3);
+  const splitSymbol = pairValue.split('/');
+  const symbolValue = splitSymbol.join("");
+  const symbolCoinbase = splitSymbol[0];
+  const currencyCoinbase = splitSymbol[1];
+ 
   /**
    * Function to calculate average of exchange rates
    */
@@ -38,7 +34,6 @@ const AverageTicker = () => {
     const divider = arrayValue.filter((e) => e !== null).length;
     const sum = arrayValue.reduce((acc, currentValue) => acc + currentValue);
     const average = sum / divider;
-    console.log("divider", divider, arrayValue);
     setAverageValue({ [`Average of ${divider} sources`]: average.toFixed(2) });
   };
 
@@ -50,12 +45,9 @@ const AverageTicker = () => {
     wss.onmessage = (msg) => {
       let value = JSON.parse(msg.data);
       if (value.event === "error") {
-        setBitfinexValue(null);
-        console.log("WS error");
+        setBitfinexValue(null);  
       }
       if (value[0]) {
-        console.log("WS ok");
-
         const arrayFixRate = value.flat();
         const averageFixRate =
           typeof arrayFixRate[1] === "string" ? 0 : arrayFixRate[1];
@@ -111,9 +103,13 @@ const AverageTicker = () => {
   }, [bitstampValues, coinbaseValue, bitfinexValue]);
 
   return (
-    <div className={styles.averageContainer}>
+    <div>
       <GJNumbersView title="Average ticker value" data={averageValue} round />
-      <Typography align="center">{`${symbolCoinbase} => ${currencyCoinbase}`}</Typography>
+      <Typography
+        color="textSecondary"
+        variant="h4"
+        align="center"
+      >{`${symbolCoinbase} => ${currencyCoinbase}`}</Typography>
     </div>
   );
 };

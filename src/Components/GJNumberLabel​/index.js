@@ -18,7 +18,7 @@ const GJNumberLabel = ({ data, round }) => {
 
   return (
     <div className={style.numbersWrap}>
-      {data && data.length > 1
+      {data && Object.keys(data).length > 0
         ? Object.entries(data).map((dt) => {
             const numberValue =
               dt[0] === "timestamp" ? dt[1] : Number(dt[1]).toFixed(2);
