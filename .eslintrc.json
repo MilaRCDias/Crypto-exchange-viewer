@@ -1,0 +1,41 @@
+{
+    "extends": "react-app",
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "rules": {
+        "semi": "error",
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [
+                    ".js",
+                    ".jsx"
+                ]
+            }
+        ],
+        "react-hooks/rules-of-hooks": "error",
+        "no-console": 1,
+        "no-alert": "off",
+        "import/imports-first": [
+            "error",
+            "absolute-first"
+        ],
+        "import/no-anonymous-default-export": [
+            "error",
+            {
+                "allowArray": false,
+                "allowArrowFunction": true,
+                "allowAnonymousClass": false,
+                "allowAnonymousFunction": true,
+                "allowCallExpression": true, // The true value here is for backward compatibility
+                "allowLiteral": false,
+                "allowObject": false
+            }
+        ]
+    }
+}

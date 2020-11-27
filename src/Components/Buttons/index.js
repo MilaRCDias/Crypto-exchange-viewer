@@ -1,32 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Box, Button, Paper } from '@material-ui/core';
+import React from "react";
+import PropTypes from "prop-types";
+import { Box, Button, Paper } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { makeStyles } from "@material-ui/core/styles";
+import componentStyle from "./Button.style";
+const useStyles = makeStyles(componentStyle, { name: "Buttons" });
 
-
-const useStyles = makeStyles({
-  root: {
-    display: "flex",
-    flexWrap: "wrap",
-    maxHeight: 250,
-    overflowY: "scroll",
-    margin: "0.5rem 0.5rem 2.5rem ",
-    borderRadius: 20,
-  },
-  buttonSelected: {
-    backgroundColor: "#58CAA9",
-    color: "#ffffff",
-  },
-  button: {
-    backgroundColor: "#4C68EF",
-    color: "#ffffff",
-  },
-});
-
-const Buttons = ({info, handleClick, selected}) => {
-    const styles= useStyles();
- 
+/**
+ * *Buttons Presentational Component
+ * display list of buttons or loading skeleton
+ * @param {array} info
+ * @param {function} handleClick
+ *  @param {string} selected
+ */
+const Buttons = ({ info, handleClick, selected }) => {
+  const styles = useStyles();
 
   return (
     <Paper elevation={0} className={styles.root}>

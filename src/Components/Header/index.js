@@ -1,31 +1,27 @@
-import React from 'react';
-import { Box, Typography, makeStyles} from "@material-ui/core";
+import React from "react";
+import { Box, Typography, makeStyles } from "@material-ui/core";
+import componentStyle from "./Header.style";
 
-const useStyles = makeStyles({
-  logo: {
-    textAlign: "left",
-    color: "#58CAA9",
-    padding:'2rem'
-  },
-  navbar: {
-    backgroundColor: "#ffffff",
-    boxShadow: "0px 2px 2px -2px rgba(0,0,0,0.1)",
-  
-  },
+const useStyles = makeStyles(componentStyle, {
+  name: "Header",
 });
 
-const Header = () => {
-const style = useStyles();
+/**
+ * *Header Presentational component
+ * Display logo in navbar
+ */
 
-return (
-  <div className={style.navbar}>
-    <Box p={2} className={style.logo}>
-      <Typography variant="h4" component="h1">
-        Cryptocurrency Exchange
-      </Typography>
-      
-    </Box>
-  </div>
-);
-}
+const Header = () => {
+  const style = useStyles();
+
+  return (
+    <div className={style.navbar}>
+      <Box p={2} className={style.logo}>
+        <Typography variant="h4" component="h1">
+          Cryptocurrency Exchange
+        </Typography>
+      </Box>
+    </div>
+  );
+};
 export default Header;

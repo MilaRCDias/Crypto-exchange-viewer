@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { Paper, Typography, Box, Card } from "@material-ui/core";
+import { Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Buttons from "../../Components/Buttons";
 import GJNumbersView from "../../Components/GJNumbersView​";
@@ -24,16 +24,16 @@ const useStyles = makeStyles({
 });
 
 /**
- *  Select Bitstamp tranding values (column 2)
- *  Container component
- *  select a tranding value pair and display values
+ * *Select Bitstamp tranding values (column 2)
+ *  Container component share context and states to children components
+ *  select a tranding pair value and displays all values
  */
 const BitstampTrading = () => {
   const styles = useStyles();
   const [buttonValues, setButtonValues] = useState();
   const [displayValue, setDisplayValue] = useState();
   const { pairValue, setPairValue } = useContext(PairValuesContext);
-  const { setBitstampValues } = useContext(BitstampValuesContext);
+  const { bitstampValues,setBitstampValues } = useContext(BitstampValuesContext);
 
   /**
    * Get button pair info from Api on component did mount
@@ -50,7 +50,7 @@ const BitstampTrading = () => {
   }, []);
 
   /**
-   *  Get values from Api on button click
+   *  Get values from Api on button click and component will mount
    */
   useEffect(() => {
     axios
@@ -62,7 +62,7 @@ const BitstampTrading = () => {
       .catch((err) => {
         throw err;
       });
-  }, [pairValue]);
+  });
 
   return (
     <div>

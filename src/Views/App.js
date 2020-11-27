@@ -1,7 +1,7 @@
-import React from 'react'
-import MainContainer from '../Containers/MainContainer'
-import Header from '../Components/Header'
-import { Container, Grid, makeStyles } from '@material-ui/core'
+import React from "react";
+import { Container, Grid, makeStyles } from "@material-ui/core";
+import MainContainer from "../Containers/MainContainer";
+import Header from "../Components/Header";
 
 const useStyles = makeStyles({
   main: {
@@ -9,12 +9,17 @@ const useStyles = makeStyles({
   },
   pageContainer: {
     backgroundColor: "#f1f7fe",
-    paddingBottom: '6rem'
+    paddingBottom: "6rem",
   },
 });
 
-const App = () => {
 
+/**
+ * * App View page
+ * 
+ */
+
+const App = () => {
   const styles = useStyles();
 
   return (
@@ -31,6 +36,6 @@ const App = () => {
       </Container>
     </div>
   );
-}
+};
 
 export default App;
