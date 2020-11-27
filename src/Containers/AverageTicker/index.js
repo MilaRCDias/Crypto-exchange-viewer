@@ -93,7 +93,7 @@ const AverageTicker = () => {
    * Component update on change values of rates and calculate the average
    */
   useEffect(() => {
-    if (bitstampValues === undefined || !coinbaseValue || !bitfinexValue)
+    if (bitstampValues === undefined || !coinbaseValue )
       return;
     calculateResult([
       Number(bitstampValues.high),

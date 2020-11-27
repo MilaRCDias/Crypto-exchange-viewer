@@ -55,7 +55,7 @@ GJNumberLabel.defaultProps = {
 };
 
 GJNumberLabel.propTypes = {
-  data: PropTypes.shape({}),
+  data: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.string]),
   round: PropTypes.bool,
 };
 
