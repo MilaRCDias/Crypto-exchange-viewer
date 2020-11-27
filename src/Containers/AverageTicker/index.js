@@ -1,51 +1,69 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import GJNumbersView from "../../Components/GJNumbersView​";
 import { makeStyles, Paper } from "@material-ui/core";
+import {
+  PairValuesContext,
+  BitstampValuesContext,
+} from "../../store/pairsContext";
 
 const useStyles = makeStyles({
   averageContainer: {
     margin: "auto",
     backgroundColor: "#f3f3f3",
-    width:'50%'
+    width: "50%",
   },
 });
 
-
-
 /**
  *  Average ticker container (column 1)
- * 
+ *
  * Container component with api calls
- * 
- *  */ 
+ *
+ *  */
 
 const AverageTicker = () => {
-  const [bitstampValue, setbitstampValue] = useState(undefined);
+  //const [bitstampValue, setbitstampValue] = useState(undefined);
   const [coinbaseValue, setCoinbaseValue] = useState();
   const [bitfinexValue, setBitfinexValue] = useState();
   const [averageValue, setAverageValue] = useState("");
   const styles = useStyles();
+
+  const { pairValue } = useContext(PairValuesContext);
+  const { bitstampValues } = useContext(BitstampValuesContext);
+
+  console.log("aver component", pairValue, bitstampValues);
+ const symbolValue = pairValue.toUpperCase();
+ const symbolCoinbase = symbolValue.substring(0, 3);
+ const currencyCoinbase = symbolValue.substring(3);
+ console.log(symbolValue, symbolCoinbase, currencyCoinbase);
   /**
    * Function to calculate average of exchange rates
    */
   const calculateResult = (arrayValue) => {
+    const divider = arrayValue.filter(e=>e !== null).length;
     const sum = arrayValue.reduce((acc, currentValue) => acc + currentValue);
-    const average = sum / (arrayValue.length+1);
-
-   
-
-    setAverageValue({ 'Average' :average.toFixed(2)});
+    const average = sum / divider;
+    console.log('divider', divider, arrayValue)
+    setAverageValue({ [`Average of ${divider} sources`]: average.toFixed(2) });
   };
 
   /**
    * Bitfinex websocket connection, react lifecycle hook
    */
   useEffect(() => {
+   
     const wss = new WebSocket("wss://api-pub.bitfinex.com/ws/2");
     wss.onmessage = (msg) => {
       let value = JSON.parse(msg.data);
+      console.log(JSON.parse(msg.data), value[0], value.event);
+      if (value.event=== 'error') {
+        setBitfinexValue(null);
+        console.log('WS error')
+      }
       if (value[0]) {
+                console.log("WS ok");
+
         const arrayFixRate = value.flat();
         const averageFixRate =
           typeof arrayFixRate[1] === "string" ? 0 : arrayFixRate[1];
@@ -56,7 +74,7 @@ const AverageTicker = () => {
     let msg = JSON.stringify({
       event: "subscribe",
       channel: "ticker",
-      symbol: "tBTCUSD",
+      symbol: `t${symbolValue}`,
     });
     wss.onopen = () => {
       wss.send(msg);
@@ -65,46 +83,45 @@ const AverageTicker = () => {
     return () => {
       wss.close();
     };
-  }, []);
+  }, [pairValue]);
+
+
+
 
   /**
    * Coinbase http call, react lifecycle hook
    */
   useEffect(() => {
     axios
-      .get(`https://api.coinbase.com/v2/exchange-rates?currency=BTC`)
+      .get(
+        `https://api.coinbase.com/v2/exchange-rates?currency=${symbolCoinbase}`
+      )
       .then((res) => {
-        setCoinbaseValue(Number(res.data.data.rates.USD));
-      })
-      .catch((err) => {
-        throw err;
-      });
-  },[]);
+        console.log("coinbase", res.data.data.rates[currencyCoinbase]);
+        if (res.data.data.rates[currencyCoinbase]===undefined){setCoinbaseValue(null);
+        }else{
 
-  /**
-   *  Bitstamp http call,react lifecycle hook
-   */
-  useEffect(() => {
-    if (bitstampValue) return;
-    axios({
-      method: "get",
-      url: `https://www.bitstamp.net/api/v2/ticker/btcusd`,
-      crossDomain: true,
-    })
-      .then((res) => {
-        setbitstampValue(Number(res.data.high));
+          setCoinbaseValue(Number(res.data.data.rates[currencyCoinbase]));
+        }
       })
       .catch((err) => {
         throw err;
       });
-  });
+  }, [symbolCoinbase, currencyCoinbase]);
+
+ 
+
   /**
    * Component update on change values of rates and calculate the average
    */
   useEffect(() => {
-    if (!bitstampValue || !coinbaseValue || !bitfinexValue) return;
-    calculateResult([bitstampValue, coinbaseValue, bitfinexValue]);
-  }, [bitstampValue, coinbaseValue, bitfinexValue]);
+    if (bitstampValues ===undefined || !coinbaseValue || !bitfinexValue) return;
+    calculateResult([
+      Number(bitstampValues.high),
+      coinbaseValue,
+      bitfinexValue,
+    ]);
+  }, [bitstampValues, coinbaseValue, bitfinexValue]);
 
   return (
     <Paper className={styles.averageContainer} elevation={3}>
