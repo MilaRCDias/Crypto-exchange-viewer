@@ -29,7 +29,7 @@ const useStyles = makeStyles({
 const MainContainer = () => {
   const styles = useStyles();
 
-  const [pairValue, setPairValue] = useState("BTC/USD");
+  const [pairValue, setPairValue] = useState("GBP/USD");
   const [bitstampValues, setBitstampValues] = useState(undefined);
 
   return (

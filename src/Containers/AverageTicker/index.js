@@ -1,12 +1,17 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { Typography } from "@material-ui/core";
+import { makeStyles, Typography } from "@material-ui/core";
 import GJNumbersView from "../../Components/GJNumbersView​";
 import {
   PairValuesContext,
   BitstampValuesContext,
 } from "../../store/pairsContext";
 
+const useStyles = makeStyles({
+  tradePair:{
+    marginBottom: '2rem',
+  }
+});
 
 /**
  *  *Average ticker container (column 1)
@@ -18,15 +23,15 @@ const AverageTicker = () => {
   const [coinbaseValue, setCoinbaseValue] = useState();
   const [bitfinexValue, setBitfinexValue] = useState();
   const [averageValue, setAverageValue] = useState("");
- 
+
   const { pairValue } = useContext(PairValuesContext);
   const { bitstampValues } = useContext(BitstampValuesContext);
 
-  const splitSymbol = pairValue.split('/');
+  const splitSymbol = pairValue.split("/");
   const symbolValue = splitSymbol.join("");
   const symbolCoinbase = splitSymbol[0];
   const currencyCoinbase = splitSymbol[1];
- 
+  const style = useStyles();
   /**
    * Function to calculate average of exchange rates
    */
@@ -45,7 +50,7 @@ const AverageTicker = () => {
     wss.onmessage = (msg) => {
       let value = JSON.parse(msg.data);
       if (value.event === "error") {
-        setBitfinexValue(null);  
+        setBitfinexValue(null);
       }
       if (value[0]) {
         const arrayFixRate = value.flat();
@@ -67,7 +72,7 @@ const AverageTicker = () => {
     return () => {
       wss.close();
     };
-  }, [pairValue,symbolValue]);
+  }, [pairValue, symbolValue]);
 
   /**
    * Coinbase http call, react lifecycle hook
@@ -93,8 +98,7 @@ const AverageTicker = () => {
    * Component update on change values of rates and calculate the average
    */
   useEffect(() => {
-    if (bitstampValues === undefined || !coinbaseValue )
-      return;
+    if (bitstampValues === undefined || !coinbaseValue) return;
     calculateResult([
       Number(bitstampValues.high),
       coinbaseValue,
@@ -105,10 +109,12 @@ const AverageTicker = () => {
   return (
     <div>
       <GJNumbersView title="Average ticker value" data={averageValue} round />
+
       <Typography
         color="textSecondary"
-        variant="h4"
+        variant="h3"
         align="center"
+        className={style.tradePair}
       >{`${symbolCoinbase} => ${currencyCoinbase}`}</Typography>
     </div>
   );
